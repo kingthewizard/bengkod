@@ -46,8 +46,7 @@ class DokterController extends Controller
         ]);
 
         return redirect()->route('dokter.index')
-            ->with('message', 'Data Dokter Berhasil di tambahkan')
-            ->with('type', 'success');
+            ->with('success', 'Data Dokter berhasil ditambahkan!');
     }
 
     public function edit(User $dokter)
@@ -84,8 +83,7 @@ class DokterController extends Controller
         $dokter->update($updateData);
 
         return redirect()->route('dokter.index')
-            ->with('message', 'Data Dokter Berhasil di ubah')
-            ->with('type', 'success');
+            ->with('success', 'Data Dokter berhasil diubah!');
     }
 
     public function destroy(User $dokter)
@@ -93,7 +91,6 @@ class DokterController extends Controller
         $dokter->delete();
 
         return redirect()->route('dokter.index')
-            ->with('message', 'Data Dokter Berhasil dihapus')
-            ->with('type', 'success');
+            ->with('success', 'Data Dokter berhasil dihapus!');
     }
 }
