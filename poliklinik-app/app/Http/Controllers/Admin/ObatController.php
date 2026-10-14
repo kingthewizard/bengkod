@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Obat;
 use Illuminate\Http\Request;
 
 class ObatController extends Controller
@@ -10,8 +11,8 @@ class ObatController extends Controller
 
     public function index()
     {
-        $obats = Obat::all();
-        return view('admin.obat.index', compact('obats'));
+        $obat = Obat::all();
+        return view('admin.obat.index', compact('obat'));
     }
     public function create()
     {
@@ -40,7 +41,7 @@ class ObatController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $$request->validate([
+        $request->validate([
             'nama_obat' => 'required|string|max:255',
             'kemasan' => 'required|string|max:255',
             'harga' => 'required|numeric|min:0',

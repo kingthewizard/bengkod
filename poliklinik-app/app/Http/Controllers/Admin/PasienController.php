@@ -57,7 +57,7 @@ class PasienController extends Controller
             'no_ktp' => 'required|string|max:16|unique:users,no_ktp,' . $pasien->id,
             'no_hp' => 'required|string|max:15',
             'email' => 'required|string|email|unique:users,email,' . $pasien->id,
-            'password' => 'required|string|min:6',
+            'password' => 'nullable|string|min:6',
         ]);
 
         $updateData = [
