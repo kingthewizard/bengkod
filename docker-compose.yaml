@@ -1,0 +1,55 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: poliklinik_app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+      - "5173:5173"
+    volumes:
+      - ./poliklinik-app:/var/www/html:z
+    depends_on:
+      - db
+    networks:
+      - laravel-net
+
+  db:
+    image: docker.io/library/mysql:8.0
+    container_name: poliknilik_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: polinklinik_db
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - laravel-net
+
+  phpmyadmin:
+    image: docker.io/phpmyadmin/phpmyadmin:latest
+    container_name: poliklinik_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - laravel-net
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  laravel-net:
+    driver: bridge
